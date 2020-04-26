@@ -1,6 +1,7 @@
 Quando("eu faço login com {string} e {string}") do |email, password|
     @login.go
     @login.with(email,password)
+    sleep 3
   end
   
   Então("devo ser autenticado") do
