@@ -1,4 +1,3 @@
-require "os"
 
 class MoviePage
     include Capybara::DSL
@@ -8,9 +7,8 @@ class MoviePage
     end
 
     def upload(file)
-        cover_file = File.join(Dir.pwd, "features/support/fixtures/cover/" + movie["cover"])
+        cover_file = File.join(Dir.pwd, "features/support/fixtures/cover/" + file)
         cover_file = cover_file.tr("/", "\\") if OS.windows?
-
         Capybara.ignore_hidden_elements = false
         attach_file("upcover", cover_file)
         Capybara.ignore_hidden_elements = true
@@ -24,12 +22,19 @@ class MoviePage
         end
     end
 
+    def alert
+        find(".alert").text
+    end
+
+    def select_status(status)
+        find("input[placeholder=Status]").click
+        find(".el-select-dropdown__item", text: status).click
+    end
 
     def create(movie)
         find("input[name=title]").set movie["title"]
 
-        find("input[placeholder=Status]").click
-        find(".el-select-dropdown__item", text: movie["status"]).click
+        select_status(movie["status"]) unless movie["status"].empty?       
         
         find("input[name=year]").set movie["year"]
         find("input[name=release_date]").set movie["release_date"]
@@ -37,10 +42,13 @@ class MoviePage
         add_cast(movie["cast"])
 
         find("textarea[name=overview]").set movie["overview"]
-        sleep 3
 
-        upload(movie["cover"])
-        sleep 4
+        upload(movie["cover"]) unless movie["cover"].empty?
 
+        find("#create-movie").click
+    end
+
+    def movie_tr(movie) 
+        find("table tbody tr",text: movie['title'])
     end
 end

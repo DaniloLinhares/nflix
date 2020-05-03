@@ -7,5 +7,4 @@ end
 Before("@login") do
     @login.go
     @login.with("tony@stark.com","pwd123")
-    sleep 3
 end
