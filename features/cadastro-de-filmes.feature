@@ -37,6 +37,11 @@ Funcionalidade: Cadastro de filmes
             | "no_date"  | "Oops - Quase lá, só falta a data de estréia!" |
 
     Cenario: Duplicado
+        O gestor de catalogo tenta cadastrar um filme, porem o titulo já foi 
+        cadastrado e outro momento e o sistema notifica o usuário informando que o titulo
+        já existe
+
         Dado que "Deadpool 2" já foi cadastrado
+        Mas este filme já existe no catalogo
         Quando eu faço o cadastro deste filme
         Então devo ver a notificação "Oops - Este titulo já existe no Ninjaflix."
