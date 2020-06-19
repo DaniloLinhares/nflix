@@ -1,0 +1,10 @@
+---
+url: ""http://devtoolbox"
+database:
+ host: "Ambiente desenvolvimento"
+ dbname: "postgres"
+ user: "postgres"
+ password: "postgres"
+users:
+  cat_maneger: "tony@stark.com"
+  pass: "pwd123"
